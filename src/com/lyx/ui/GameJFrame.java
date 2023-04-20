@@ -11,11 +11,20 @@ import java.util.Random;
 
 public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     //创建菜单子条目
+    JMenuItem changeItem = new JMenuItem("changeImage");
     JMenuItem replayItem = new JMenuItem("restart");
     JMenuItem reLoginItem = new JMenuItem("reLogin");
     JMenuItem closeItem = new JMenuItem("close");
     //创建关于账号
     JMenuItem accountItem = new JMenuItem("account");
+
+    //创建关于更换图片对象,用于更换游戏
+    JMenuItem megumi1 = new JMenuItem("megumi1");
+    JMenuItem megumi2 = new JMenuItem("megumi2");
+    JMenuItem megumi3 = new JMenuItem("megumi3");
+
+
+
     //步数
     int step = 0 ;
 
@@ -131,6 +140,14 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         //创建上方菜单对象
         JMenu functionJMenu = new JMenu("功能");
         JMenu aboutJMenu = new JMenu("关于");
+        //JMenu 中可以再次嵌套多个JMenu。
+        JMenu changeJMenu = new JMenu("changeImage");
+
+        changeJMenu.add(megumi1);
+        changeJMenu.add(megumi2);
+        changeJMenu.add(megumi3);
+
+
 
         //给条目绑定事件，让按钮条目能够实现对应功能
         //过程中，为了实现按钮功能，首先需要准备好动作监听（准备好相应接口），然后给按钮创建对象，并把对象和接口监听事件
@@ -141,12 +158,14 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         accountItem.addActionListener(this);
 
 
-
         //将每个子条目加入对应选项中
         functionJMenu.add(replayItem);
         functionJMenu.add(reLoginItem);
         functionJMenu.add(closeItem);
+        //添加更换图片菜单
+        functionJMenu.add(changeJMenu);
 
+        //添加关于账号菜单
         aboutJMenu.add(accountItem);
         //将菜单对象加入上方菜单中
         jMenuBar.add(functionJMenu);
@@ -176,9 +195,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         //整个屏幕的键盘监听器
         this.addKeyListener(this);
 
-        JLabel jLabel =new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\background\\bg.jpg"));
-        jLabel.setBounds(0,0,800,900);
-        this.getContentPane().add(jLabel);
+
 
     }
 
