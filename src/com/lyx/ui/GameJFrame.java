@@ -170,6 +170,11 @@ public class GameJFrame extends JFrame implements KeyListener {
     @Override
     //松开
     public void keyReleased(KeyEvent e) {
+        //如果游戏胜利，不能继续移动代码
+        if (victory()) {
+            //1.返回结果 2.结束方法
+            return;
+        }
         //对上下左右进行判断
         //左37，上38，右39，下40
         int code = e.getKeyCode();
