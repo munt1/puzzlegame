@@ -7,7 +7,10 @@ import java.awt.event.KeyListener;
 import java.util.Random;
 
 public class GameJFrame extends JFrame implements KeyListener {
-     int win[][]=new int[][] {
+    //步数
+    int step = 0 ;
+
+    int win[][]=new int[][] {
         {1,2,3,4,5},
         {6,7,8,9,10},
         {11,12,13,14,15},
@@ -66,11 +69,17 @@ public class GameJFrame extends JFrame implements KeyListener {
 
         this.getContentPane().removeAll();
 
+        //判断是否是正确的图像
         if (victory()) {
             JLabel winJ = new JLabel(new ImageIcon(path + "3.jpg"));
             winJ.setBounds(203,283,197,73);
             this.getContentPane().add(winJ);
         }
+
+        //计数器
+        JLabel stepCount = new JLabel("步数："  +  step);
+        stepCount.setBounds(50,30,100,20);
+        this.getContentPane().add(stepCount);
 
 
 
