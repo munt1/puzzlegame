@@ -66,6 +66,12 @@ public class GameJFrame extends JFrame implements KeyListener {
 
         this.getContentPane().removeAll();
 
+        if (victory()) {
+            JLabel winJ = new JLabel(new ImageIcon(path + "3.jpg"));
+            winJ.setBounds(203,283,197,73);
+            this.getContentPane().add(winJ);
+        }
+
 
 
 
