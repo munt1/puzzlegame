@@ -14,5 +14,6 @@ public class LoginJFrame extends JFrame {
         this.setLocationRelativeTo(null);
         //关闭模式
         this.setDefaultCloseOperation(3);
+
     }
 }

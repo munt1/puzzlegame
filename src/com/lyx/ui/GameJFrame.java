@@ -22,6 +22,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     JMenuItem megumi1 = new JMenuItem("megumi1");
     JMenuItem megumi2 = new JMenuItem("megumi2");
     JMenuItem megumi3 = new JMenuItem("megumi3");
+    JMenuItem another = new JMenuItem("another");
 
 
 
@@ -56,7 +57,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         this.setVisible(true);
     }
     //定义一个对象，记录当前展示图片位置
-    String path = "D:\\IDEASPACE\\puzzlegame\\image\\katomegumi\\";
+    String path = "D:\\IDEASPACE\\puzzlegame\\image\\katomegumi1\\";
     //记录空白方块在二维数组中的位置
     int x = 0;
     int y = 0;
@@ -146,7 +147,12 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         changeJMenu.add(megumi1);
         changeJMenu.add(megumi2);
         changeJMenu.add(megumi3);
-
+        changeJMenu.add(another);
+        //添加监听器
+        megumi1.addActionListener(this);
+        megumi2.addActionListener(this);
+        megumi3.addActionListener(this);
+        another.addActionListener(this);
 
 
         //给条目绑定事件，让按钮条目能够实现对应功能
@@ -329,7 +335,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             System.out.println("重新游戏");
             step=0;
             initDate();
-
             initImage();
             //直接重新调用方法会出现BUG
 //            initDate();
@@ -337,7 +342,35 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             //步数清零应该放在重新调用方法前边
 //            step = 0;
 
-        }else if (obj == reLoginItem) {
+        }else if (obj == megumi1){
+            System.out.println("megumi1");
+            path = "D:\\IDEASPACE\\puzzlegame\\image\\katomegumi1\\";
+            step=0;
+            initDate();
+            initImage();
+            this.getContentPane().repaint();
+        }else if (obj == megumi2){
+            System.out.println("megumi2");
+            path = "D:\\IDEASPACE\\puzzlegame\\image\\katomegumi2\\";
+            step=0;
+            initDate();
+            initImage();
+            this.getContentPane().repaint();
+        }else if (obj == megumi3){
+            System.out.println("megumi3");
+            path = "D:\\IDEASPACE\\puzzlegame\\image\\katomegumi3\\";
+            step=0;
+            initDate();
+            initImage();
+            this.getContentPane().repaint();
+        }else if (obj == another) {
+            System.out.println("megumi3");
+            path = "D:\\IDEASPACE\\puzzlegame\\image\\anotherphoto";
+            step = 0;
+            initDate();
+            initImage();
+            this.getContentPane().repaint();
+        } else if (obj == reLoginItem) {
             System.out.println("重新登录");
             //关闭当前游戏界面
             this.setVisible(false);
