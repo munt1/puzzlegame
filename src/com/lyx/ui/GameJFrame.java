@@ -2,6 +2,7 @@ package com.lyx.ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -30,6 +31,7 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     int [][] data = new int[6][6];
     //游戏主界面
     public GameJFrame() {
+
         initJFrame();
 
         //初始化菜单
@@ -66,9 +68,11 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
             if (tempArr[i] == 0){
                 x = i / 5;
                 y = i % 5;
-            }else if (tempArr[i] !=0){
+            }//此处的else if会导致后边实现replay时候出现空白格不会传递覆盖的BUG，所以
+            //应该让整个二维数组被覆盖即可
+
                 data [ i / 5 ][ i % 5 ] = tempArr [ i ];
-            }
+
 
         }
     }
@@ -79,14 +83,15 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
         //判断是否是正确的图像
         if (victory()) {
-            JLabel winJ = new JLabel(new ImageIcon(path + "3.jpg"));
-            winJ.setBounds(203,283,197,73);
+            JLabel winJ = new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\background\\true.jpg"));
+            winJ.setBounds(200,200,400,400);
             this.getContentPane().add(winJ);
         }
 
         //计数器
         JLabel stepCount = new JLabel("步数："  +  step);
-        stepCount.setBounds(50,30,100,20);
+
+        stepCount.setBounds(30,30,200,50);
         this.getContentPane().add(stepCount);
 
 
@@ -102,19 +107,18 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
                 //创建一个JLabel的对象（管理容器）
                 JLabel jLabel = new JLabel(new ImageIcon(path + number +".jpg"));
                 //指定位置
-                jLabel.setBounds(105*j + 30,105*i + 40,105,105);
+                jLabel.setBounds(120*j + 100,120*i + 100,120,120);
                 //给图片添加边框
-                jLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
+                jLabel.setBorder(new BevelBorder(BevelBorder.RAISED));
                 //把管理容器添加到界面中
                 this.getContentPane().add(jLabel);
 
             }
         }
         //设置背景
-        JLabel backGround = new JLabel(new ImageIcon(path + "\\background\\.jpg"));
-        backGround.setBounds(0,0,1000,1000);
+        JLabel backGround = new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\background\\bg.jpg"));
+        backGround.setBounds(0,0,800,900);
         this.getContentPane().add(backGround);
-
         this.getContentPane().repaint();
 
 
@@ -153,19 +157,29 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
     }
 
     private void initJFrame() {
-        this.setSize(603,680);
+
+        this.getContentPane().setBackground(Color.pink);
+        this.setSize(800,900);
 
         this.setTitle("拼图单机版v1.0");
         //置顶
         this.setAlwaysOnTop(true);
+
         //居中
         this.setLocationRelativeTo(null);
         //关闭模式
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         //取消默认布局
         this.setLayout(null);
+
         //整个屏幕的键盘监听器
         this.addKeyListener(this);
+
+        JLabel jLabel =new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\background\\bg.jpg"));
+        jLabel.setBounds(0,0,800,900);
+        this.getContentPane().add(jLabel);
+
     }
 
     @Override
@@ -179,13 +193,15 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         int code = e.getKeyCode();
         if (code == 65 ) {
             this.getContentPane().removeAll();
-            JLabel all = new JLabel(new ImageIcon(path + "2.jpg"));
-            all.setBounds(0,0,200,200);
+            JLabel all = new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\katomegumi\\all.jpg"));
+            all.setBounds(100,100,600,600);
             this.getContentPane().add(all);
 
-            JLabel background = new JLabel(new ImageIcon(path + "background.jpg"));
-            background.setBounds(40,40,508,560);
-            this.getContentPane().add(background);
+            //设置背景
+            JLabel backGround = new JLabel(new ImageIcon("D:\\IDEASPACE\\puzzlegame\\image\\background\\bg.jpg"));
+            backGround.setBounds(0,0,800,900);
+            this.getContentPane().add(backGround);
+            this.getContentPane().repaint();
             //刷新页面
             this.getContentPane().repaint();
         }
@@ -294,12 +310,40 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
         Object obj = e.getSource();
         if (obj == replayItem) {
             System.out.println("重新游戏");
+            step=0;
+            initDate();
+
+            initImage();
+            //直接重新调用方法会出现BUG
+//            initDate();
+//            initImage();
+            //步数清零应该放在重新调用方法前边
+//            step = 0;
+
         }else if (obj == reLoginItem) {
             System.out.println("重新登录");
+            //关闭当前游戏界面
+            this.setVisible(false);
+            //打开登录界面
+            new LoginJFrame();
         }else if (obj == closeItem) {
             System.out.println("关闭游戏");
+            //直接关闭虚拟机
+            System.exit(0);
         }else if (obj == accountItem) {
             System.out.println("公众号");
+            //创建弹框对象
+            JDialog jDialog = new JDialog();
+            //创建一个管理图片的容器对象JLabel
+            JLabel jLabel = new JLabel(new ImageIcon(path + "4.jpg"));
+            jLabel.setBounds(0,0,258,258);
+            jDialog.getContentPane().add(jLabel);
+            jDialog.setSize(344,344);
+            jDialog.setAlwaysOnTop(true);
+            jDialog.setLocationRelativeTo(null);
+            //弹框不关闭则无法操作下面的界面
+            jDialog.setModal(true);
+            jDialog.setVisible(true);
         }
     }
 }
