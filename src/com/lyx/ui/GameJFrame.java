@@ -2,15 +2,23 @@ package com.lyx.ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-public class GameJFrame extends JFrame implements KeyListener {
+public class GameJFrame extends JFrame implements KeyListener, ActionListener {
+    //创建菜单子条目
+    JMenuItem replayItem = new JMenuItem("restart");
+    JMenuItem reLoginItem = new JMenuItem("reLogin");
+    JMenuItem closeItem = new JMenuItem("close");
+    //创建关于账号
+    JMenuItem accountItem = new JMenuItem("account");
     //步数
     int step = 0 ;
 
-    int win[][]=new int[][] {
+    int win [][]=new int [][] {
         {1,2,3,4,5},
         {6,7,8,9,10},
         {11,12,13,14,15},
@@ -96,7 +104,7 @@ public class GameJFrame extends JFrame implements KeyListener {
                 //指定位置
                 jLabel.setBounds(105*j + 30,105*i + 40,105,105);
                 //给图片添加边框
-                jLabel.setBorder(new BevelBorder(1));
+                jLabel.setBorder(new BevelBorder(BevelBorder.LOWERED));
                 //把管理容器添加到界面中
                 this.getContentPane().add(jLabel);
 
@@ -119,19 +127,24 @@ public class GameJFrame extends JFrame implements KeyListener {
         //创建上方菜单对象
         JMenu functionJMenu = new JMenu("功能");
         JMenu aboutJMenu = new JMenu("关于");
-        //创建菜单子条目
-        JMenuItem replayItem = new JMenuItem("restart");
-        JMenuItem reLoginItem = new JMenuItem("reLogin");
-        JMenuItem closeItem = new JMenuItem("close");
 
-        JMenuItem accountItem = new JMenuItem("account");
+        //给条目绑定事件，让按钮条目能够实现对应功能
+        //过程中，为了实现按钮功能，首先需要准备好动作监听（准备好相应接口），然后给按钮创建对象，并把对象和接口监听事件
+        //绑定，重写接口中的方法，然后调用方法。
+        replayItem.addActionListener(this);
+        reLoginItem.addActionListener(this);
+        closeItem.addActionListener(this);
+        accountItem.addActionListener(this);
+
+
+
         //将每个子条目加入对应选项中
         functionJMenu.add(replayItem);
         functionJMenu.add(reLoginItem);
         functionJMenu.add(closeItem);
 
         aboutJMenu.add(accountItem);
-//将菜单对象加入上方菜单中
+        //将菜单对象加入上方菜单中
         jMenuBar.add(functionJMenu);
         jMenuBar.add(aboutJMenu);
 
@@ -148,7 +161,7 @@ public class GameJFrame extends JFrame implements KeyListener {
         //居中
         this.setLocationRelativeTo(null);
         //关闭模式
-        this.setDefaultCloseOperation(3);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //取消默认布局
         this.setLayout(null);
         //整个屏幕的键盘监听器
@@ -273,5 +286,20 @@ public class GameJFrame extends JFrame implements KeyListener {
             }
         }
         return true;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Object obj = e.getSource();
+        if (obj == replayItem) {
+            System.out.println("重新游戏");
+        }else if (obj == reLoginItem) {
+            System.out.println("重新登录");
+        }else if (obj == closeItem) {
+            System.out.println("关闭游戏");
+        }else if (obj == accountItem) {
+            System.out.println("公众号");
+        }
     }
 }
