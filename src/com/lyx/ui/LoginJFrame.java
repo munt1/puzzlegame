@@ -1,8 +1,16 @@
 package com.lyx.ui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LoginJFrame extends JFrame {
+public class LoginJFrame extends JFrame implements ActionListener {
+    JButton loginButton = new JButton();
+    JButton zhuCeButton = new JButton();
+    JButton yzmButton = new JButton();
+
+
+
     //登录
     public LoginJFrame(){
         //登录主界面
@@ -35,16 +43,21 @@ public class LoginJFrame extends JFrame {
 
 
         //按钮
-        JButton loginButton = new JButton();
-        loginButton.setText("登录");
-        loginButton.setBounds(170,400,60,60);
-        JButton zhuCeButton = new JButton();
-        zhuCeButton.setText("注册");
-        zhuCeButton.setBounds(170,465,60,60);
 
-        JButton yzmButton = new JButton();
+        loginButton.setText("登录");
+        loginButton.setBounds(160,240,60,60);
+
+        zhuCeButton.setText("注册");
+        zhuCeButton.setBounds(160,303,60,60);
+
         yzmButton.setText("刷新验证码");
-        yzmButton.setBounds(170,530,60,60);
+        yzmButton.setBounds(160,366,60,60);
+
+        //给按钮添加监听器
+        loginButton.addActionListener(this);
+        zhuCeButton.addActionListener(this);
+        yzmButton.addActionListener(this);
+
 
 
 
@@ -144,4 +157,25 @@ public class LoginJFrame extends JFrame {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Object button = e.getSource();
+        if (button == loginButton) {
+            System.out.println("登录");
+
+            this.setVisible(false);
+            new GameJFrame();
+
+
+        }else if (button == zhuCeButton) {
+            System.out.println("注册");
+            this.setVisible(false);
+            new RegisterJFrame();
+        }else if (button == yzmButton) {
+            System.out.println("刷新验证码");
+            new LoginJFrame();
+        }
+
+    }
 }
