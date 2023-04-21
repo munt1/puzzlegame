@@ -16,6 +16,8 @@ public class test4 {
                 chars[i] =(char)(65 + i - 26);
             }
         }
+
+
         for (int i = 0; i < chars.length; i++) {
             System.out.print(chars[i]);
 

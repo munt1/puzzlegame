@@ -2,7 +2,6 @@ package com.lyx.ui;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -106,7 +105,6 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
 
 
-
         //设置拼图
         for (int i = 0; i < 5; i++) {
 
@@ -183,7 +181,8 @@ public class GameJFrame extends JFrame implements KeyListener, ActionListener {
 
     private void initJFrame() {
 
-        this.getContentPane().setBackground(Color.pink);
+
+
         this.setSize(800,900);
 
         this.setTitle("拼图单机版v1.0");
